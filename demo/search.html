@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Weblogs</title>
     <script src="jquery.js"></script>
     <script src="angular.js"></script>
     <script src="search.js"></script>
@@ -71,20 +71,9 @@
     <div class="panel-body form-group" style="margin-bottom:0px;">
         <label class="col-sm-1 control-label" style="top:5px;">项目:</label>
         <div class="col-sm-3">    
-            <!-- <input type="radio" name="programe" value="ccp"  ng-model="programe" ng-selected="ccp"/> CCP  
+            <input type="radio" name="programe" value="ccp"  ng-model="programe" ng-selected="ccp"/> CCP  
             <input type="radio" name="programe" value="csp"  ng-model="programe"/> CSP
-            <input type="radio" name="programe" value="tms" ng-model="programe" /> TMS -->
-            <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-danger">
-                    <input type="radio" name="programe" id="CCP" ng-selected="ccp" ng-model="programe" value="ccp"> CCP
-                </label>
-                <label class="btn btn-danger">
-                    <input type="radio" name="programe" id="CSP" ng-model="programe" value="csp"> CSP
-                </label>
-                <label class="btn btn-danger">
-                    <input type="radio" name="programe" id="TMS" ng-model="programe" value="tms"> TMS
-                </label>
-            </div>	
+            <input type="radio" name="programe" value="tms" ng-model="programe" /> TMS
         </div>
         <div class="col-sm-3"> 
       <button id="btn1" ng-click="submit()" type="button" class="btn btn-primary">查询</button>
