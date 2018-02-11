@@ -14,9 +14,11 @@
     <!-- bootstrap table -->
     <link rel="stylesheet" href="public/bootstrap.min.css">
     <link rel="stylesheet" href="public/bootstrap-table.min.css">
-    <link rel="stylesheet" href="public/bootstrap.min.js">
-    <link rel="stylesheet" href="public/bootstrap-table.min.js">
-    <link rel="stylesheet" href="public/bootstrap-table-zh-CN.min.js">
+    <script  src="public/bootstrap.min.js"></script>
+    <script  src="public/bootstrap-table.min.js"></script>
+    <script  src="public/bootstrap-table-zh-CN.min.js"></script>
+
+	
     <style>
             .page-list .pagination {float:left;}
             .page-list .pagination span {cursor: pointer;}
@@ -69,9 +71,20 @@
     <div class="panel-body form-group" style="margin-bottom:0px;">
         <label class="col-sm-1 control-label" style="top:5px;">项目:</label>
         <div class="col-sm-3">    
-            <input type="radio" name="programe" value="ccp"  ng-model="programe" ng-selected="ccp"/> CCP  
+            <!-- <input type="radio" name="programe" value="ccp"  ng-model="programe" ng-selected="ccp"/> CCP  
             <input type="radio" name="programe" value="csp"  ng-model="programe"/> CSP
-            <input type="radio" name="programe" value="tms" ng-model="programe" /> TMS
+            <input type="radio" name="programe" value="tms" ng-model="programe" /> TMS -->
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-danger">
+                    <input type="radio" name="programe" id="CCP" ng-selected="ccp"> CCP
+                </label>
+                <label class="btn btn-danger">
+                    <input type="radio" name="programe" id="CSP"> CSP
+                </label>
+                <label class="btn btn-danger">
+                    <input type="radio" name="programe" id="TMS"> TMS
+                </label>
+            </div>	
         </div>
         <div class="col-sm-3"> 
       <button id="btn1" ng-click="submit()" type="button" class="btn btn-primary">查询</button>
