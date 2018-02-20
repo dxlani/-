@@ -3,7 +3,7 @@ exports.pmx=()=>{
 var pmx = require('pmx').init({
   network       : true,  //选项将显示入站和出站流量
   ports         : true,  //将显示您的应用程序正在使用的端口 
-}); 
+});  
 var probe = pmx.probe();
 
 var meter = probe.meter({
