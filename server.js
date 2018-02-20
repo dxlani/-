@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const pool = require('./dbpool');   //使用连接池模块获取连接
 const sendEmail=require('./controller/sendEmail.js'); //发送邮件工具
 const deleteLog=require('./controller/deleteLog.js'); //日志清除方法
+const pmx=require('./controller/pmx.js'); //add metric 
 const schedule = require('node-schedule');//定时清除日志工具
 const json2xls = require('json2xls');//导出excel
 const getccplog =require('./routes/getccplog');//ccp接口
@@ -12,6 +13,8 @@ const gettmslog =require('./routes/gettmslog');
 const URL =require('url');
 app.use(bodyParser.json());
 app.use(bodyParser.text());
+
+pm2.pmx();
 
 /**
  * 日志级别对应的颜色枚举
