@@ -14,7 +14,7 @@ const URL =require('url');
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 
-pm2.pmx();
+pmx.pmx();
 
 /**
  * 日志级别对应的颜色枚举
