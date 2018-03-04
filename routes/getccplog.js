@@ -4,7 +4,7 @@ const pool = require('../dbpool');
 const json2xls = require('json2xls');//导出excel
 router.get('/',function(req,res,next){
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
     var level="";
     switch(req.param('level'))
     {
