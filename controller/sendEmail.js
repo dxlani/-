@@ -17,7 +17,7 @@ var sendEmail=(level,hostname,time,url,msgs)=>{
         
         var mailOptions = {
             from: '870188670@qq.com', // 发件地址
-            to: '351230690@qq.com;583144373@qq.com', // 收件列表
+            to: '351230690@qq.com;', // 收件列表
             subject: hostname+"错误日志", // 标题
             //text和html两者只支持一种
            // text:"时间：["+time+"]["+url+"]:"+msgs, // 内容
