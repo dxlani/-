@@ -42,14 +42,14 @@ app.use(express.static('./demo'));
 
 // 判断origin是否在域名白名单列表中
  isOriginAllowed=(origin, allowedOrigin)=>{
-    if (_.isArray(allowedOrigin)) {
+    if (typeof(allowedOrigin)=="object") {
     for(let i = 0; i < allowedOrigin.length; i++) {
      if(isOriginAllowed(origin, allowedOrigin[i])) {
      return true;
      }
     }
     return false;
-    } else if (_.isString(allowedOrigin)) {
+    } else if (typeof(allowedOrigin)=="string") {
     return origin === allowedOrigin;
     } else if (allowedOrigin instanceof RegExp) {
     return allowedOrigin.test(origin);
