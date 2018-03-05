@@ -60,9 +60,9 @@ app.use(express.static('./demo'));
    }
  
 const ALLOW_ORIGIN = [ // 域名白名单
- '*.dingxiaolin.com',
- '*.sowl.cn',
- '*.jfry.cn',
+ 'dingxiaolin.com',
+ 'sowl.cn',
+ 'jfry.cn',
 ];
 /**
  * 允许跨域
