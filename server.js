@@ -43,20 +43,11 @@ app.use(express.static('./demo'));
  //跨域白名单
 
  isOriginAllowed=(origin, allowedOrigin)=>{
-    if (typeof(allowedOrigin)=="object") {
-    for(let i = 0; i < allowedOrigin.length; i++) {
-     if(isOriginAllowed(origin, allowedOrigin[i])) {
-     return true;
-     }
-    }
-    return false;
-    } else if (typeof(allowedOrigin)=="string") {
-    return origin === allowedOrigin;
-    } else if (allowedOrigin instanceof RegExp) {
-    return allowedOrigin.test(origin);
-    } else {
-    return !!allowedOrigin;
-    }
+    var reg=new RegExp(allowedOrigin.join("|"),"ig");   //动态生成一个正则表达式
+    // var domain=str.match(reg);   //匹配 正则
+    if(reg.test(str)){
+        return true;
+    }else return false;
    }
  
 const ALLOW_ORIGIN = [ // 域名白名单
@@ -77,8 +68,7 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Accept');
     res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
   } else {
-   // res.send({ code: -2, msg: '非法请求' });
-    res.send({reqOrigin:reqOrigin,ALLOW_ORIGIN:ALLOW_ORIGIN,boolean:isOriginAllowed(reqOrigin, ALLOW_ORIGIN)})
+    res.send({ code: -2, msg: '非法请求' });
     }
     next();
 });
