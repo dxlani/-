@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "lajax+node+express+mysql - 前端日志解决方案",
   "main": "server.js",
-  "dependencies": { 
+  "dependencies": {
     "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
     "express": "^4.15.4",
     "json2xls": "^0.1.2",
     "mysql": "^2.15.0",
