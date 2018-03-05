@@ -40,14 +40,47 @@ const colorize = level => {
 //向客户端提供静态资源的响应
 app.use(express.static('./demo'));
 
+// 判断origin是否在域名白名单列表中
+ isOriginAllowed=(origin, allowedOrigin)=>{
+    if (_.isArray(allowedOrigin)) {
+    for(let i = 0; i < allowedOrigin.length; i++) {
+     if(isOriginAllowed(origin, allowedOrigin[i])) {
+     return true;
+     }
+    }
+    return false;
+    } else if (_.isString(allowedOrigin)) {
+    return origin === allowedOrigin;
+    } else if (allowedOrigin instanceof RegExp) {
+    return allowedOrigin.test(origin);
+    } else {
+    return !!allowedOrigin;
+    }
+   }
+    
+    
+   const ALLOW_ORIGIN = [ // 域名白名单
+    '*.dingxiaolin.com',
+    '*.sowl.cn',
+    '*.jfry.cn'
+   ];
+
 /**
  * 允许跨域
  */
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
+    let reqOrigin = req.headers.origin; // request响应头的origin属性
+    // 判断请求是否在域名白名单内
+    if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
+    // 设置CORS为请求的Origin值
+    res.header("Access-Control-Allow-Origin", reqOrigin);
+    res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header("Access-Control-Allow-Credentials", "true");
     res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
+    } 
+    else {
+    res.send({ code: -2, msg: '非法请求' });
+    }
     next();
 });
 
