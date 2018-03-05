@@ -79,7 +79,8 @@ app.use((req, res, next) => {
     res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
     } 
     else {
-    res.send({ code: -2, msg: '非法请求' });
+        res.send({ reqOrigin: reqOrigin, ALLOW_ORIGIN: ALLOW_ORIGIN });
+ //  res.send({ code: -2, msg: '非法请求' });
     }
     next();
     res.send({ reqOrigin: reqOrigin, ALLOW_ORIGIN: ALLOW_ORIGIN });
