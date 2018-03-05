@@ -68,6 +68,7 @@ const ALLOW_ORIGIN = [ // 域名白名单
  * 允许跨域
  */
 app.use((req, res, next) => {
+    let reqOrigin = req.headers.origin; // request响应头的origin属性
     // 判断请求是否在域名白名单内
     if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
     // 设置CORS为请求的Origin值
