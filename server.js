@@ -60,7 +60,7 @@ app.use(express.static('./demo'));
     
     
    const ALLOW_ORIGIN = [ // 域名白名单
-    '*.dingxiaolin.com',
+    'blog.dingxiaolin.com',
     '*.sowl.cn',
     '*.jfry.cn'
    ];
@@ -82,6 +82,7 @@ app.use((req, res, next) => {
     res.send({ code: -2, msg: '非法请求' });
     }
     next();
+    res.send({ reqOrigin: reqOrigin, ALLOW_ORIGIN: ALLOW_ORIGIN });
 });
 
 app.use('/log', (req, res) => {
