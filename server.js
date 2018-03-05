@@ -45,9 +45,7 @@ app.use(express.static('./demo'));
  isOriginAllowed=(origin, allowedOrigin)=>{
     var reg=new RegExp(allowedOrigin.join("|"),"ig");   //动态生成一个正则表达式
     // var domain=str.match(reg);   //匹配 正则
-    if(reg.test(str)){
-        return true;
-    }else return false;
+    return reg.test(origin)
    }
  
 const ALLOW_ORIGIN = [ // 域名白名单
