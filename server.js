@@ -13,7 +13,7 @@ const gettmslog =require('./routes/gettmslog');
 const URL =require('url');
 app.use(bodyParser.json());
 app.use(bodyParser.text());
-const cors=require('cors');
+
 // pmx.pmx();
 
 /**
@@ -41,26 +41,44 @@ const colorize = level => {
 app.use(express.static('./demo'));
 
  //跨域白名单
-   var whitelist = ['dingxiaolin.com', 'sowl.cn','jfry.cn']
-   var corsOptions = {
-     origin: function (origin, callback) {
-       if (whitelist.indexOf(origin) !== -1) {
-         callback(null, true)
-       } else {
-         callback(new Error('Not allowed by CORS'))
-       }
+
+ isOriginAllowed=(origin, allowedOrigin)=>{
+    if (typeof(allowedOrigin)=="object") {
+    for(let i = 0; i < allowedOrigin.length; i++) {
+     if(isOriginAllowed(origin, allowedOrigin[i])) {
+     return true;
      }
+    }
+    return false;
+    } else if (typeof(allowedOrigin)=="string") {
+    return origin === allowedOrigin;
+    } else if (allowedOrigin instanceof RegExp) {
+    return allowedOrigin.test(origin);
+    } else {
+    return !!allowedOrigin;
+    }
    }
+ 
+const ALLOW_ORIGIN = [ // 域名白名单
+ '*.dingxiaolin.com',
+ '*.sowl.cn',
+ '*.jfry.cn',
+];
 /**
  * 允许跨域
  */
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Credentials', 'true');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    cors(corsOptions);
+    // 判断请求是否在域名白名单内
+    if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
     // 设置CORS为请求的Origin值
+    res.header("Access-Control-Allow-Origin", reqOrigin);
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Accept');
     res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
-
+  } else {
+   // res.send({ code: -2, msg: '非法请求' });
+    res.send({reqOrigin:reqOrigin,ALLOW_ORIGIN:ALLOW_ORIGIN,boolean:isOriginAllowed(reqOrigin, ALLOW_ORIGIN)})
+    }
     next();
 });
 
