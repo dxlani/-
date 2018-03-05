@@ -43,26 +43,17 @@ app.use(express.static('./demo'));
 // 判断origin是否在域名白名单列表中
  isOriginAllowed=(origin, allowedOrigin)=>{
     if (typeof(allowedOrigin)=="object") {
-    for(let i = 0; i < allowedOrigin.length; i++) {
-     if(isOriginAllowed(origin, allowedOrigin[i])) {
-     return true;
-     }
-    }
-    return false;
-    } else if (typeof(allowedOrigin)=="string") {
-    return origin === allowedOrigin;
-    } else if (allowedOrigin instanceof RegExp) {
-    return allowedOrigin.test(origin);
-    } else {
-    return !!allowedOrigin;
-    }
+        allowedOrigin.forEach((value,index)=>{
+            if(origin.indexOf(value)>-1){
+                return true;
+            }else return false;
+        })
+    } 
    }
-    
-    
    const ALLOW_ORIGIN = [ // 域名白名单
-    'blog.dingxiaolin.com',
-    '*.sowl.cn',
-    '*.jfry.cn'
+    'dingxiaolin.com',
+    'sowl.cn',
+    'jfry.cn'
    ];
 
 /**
@@ -79,11 +70,9 @@ app.use((req, res, next) => {
     res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
     } 
     else {
-        res.send({ reqOrigin: reqOrigin, ALLOW_ORIGIN: ALLOW_ORIGIN });
- //  res.send({ code: -2, msg: '非法请求' });
+    res.send({ code: -2, msg: '非法请求' });
     }
     next();
-    res.send({ reqOrigin: reqOrigin, ALLOW_ORIGIN: ALLOW_ORIGIN });
 });
 
 app.use('/log', (req, res) => {
