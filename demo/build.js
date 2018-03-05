@@ -937,7 +937,7 @@ var logger = new Lajax({
 		// if (url === 'http://www.taobao.com' && method.toLowerCase() === 'get') {
 		// 	return false;
 		// }
-		if(url.indexOf('wilddogio.com')>-1){
+		if(url.indexOf('wilddog')>-1){
 			return false;
 		}
 		return true;
