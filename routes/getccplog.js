@@ -138,11 +138,8 @@ var fenye=" limit "+skip+","+count;
 
 // 导出日志列表
 router.get('/export',function(req,res,next){
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    //res.setHeader("Content-type","application/xls;charset=gb2312");
-   // res.setHeader("content-disposition","attachment; filename='downloaded.xls'");
-
+    // res.header('Access-Control-Allow-Origin', '*');
+    // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
    var level="";
    switch(req.param('level'))
    {
