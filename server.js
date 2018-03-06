@@ -73,7 +73,7 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", '*');
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Accept');
-    res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
+  //  res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
   next();
 });
 app.use('/log', (req, res) => {
