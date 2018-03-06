@@ -1,5 +1,4 @@
 var app=angular.module('myapp',['ng','tm.pagination']);
-
 app.controller('myCtrl',['$scope','$http',function ($scope,$http) {
  // 初始化数据
   $scope.level="0";
@@ -51,7 +50,9 @@ app.controller('myCtrl',['$scope','$http',function ($scope,$http) {
     {
       case "ccp":
       $http
-      .get('/getccplog?level='+ $scope.l+"&keyword="+ $scope.k+"&startTime="+ $scope.s+"&endTime="+ $scope.e+"&skip="+ $scope.skip+"&count="+ $scope.count)
+      .get('/getccplog?level='+ $scope.l+"&keyword="+ $scope.k+"&startTime="+ $scope.s+"&endTime="+ $scope.e+"&skip="+ $scope.skip+"&count="+ $scope.count,
+      { withCredentials: true,
+        headers: {'Authorization':"89757"}})    
       .success(function (data) {
         //解析服务端返回的结果
         console.log(data.data);
