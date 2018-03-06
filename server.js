@@ -103,6 +103,7 @@ app.use('/log', (req, res) => {
             {
                 case "tms.sowl.cn":
                       //tms
+                    var hostvalid=ture;
                     pool.getConnection((err, conn)=>{
                         if(err){
                             return;
@@ -118,6 +119,7 @@ app.use('/log', (req, res) => {
                     break;
                 case "csp.sowl.cn":
                      //csp
+                     var hostvalid=ture;
                     pool.getConnection((err, conn)=>{
                         if(err){
                             return;
@@ -133,6 +135,7 @@ app.use('/log', (req, res) => {
                     break;
                 case "ccp.sowl.cn":
                     //ccp
+                    var hostvalid=ture;
                     pool.getConnection((err, conn)=>{
                         if(err){
                             return;
@@ -148,12 +151,14 @@ app.use('/log', (req, res) => {
                     console.log("ccp");
                     break;       
                 default:
+                var hostvalid=false;
                 console.log('域名不匹配');
             }
 
             //error日志报警
-            sendEmail(level,hostname,time,url,msgs);
-            
+            if(hostvalid){
+                sendEmail(level,hostname,time,url,msgs);
+            }
         });
     }
 
