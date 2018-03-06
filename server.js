@@ -48,6 +48,7 @@ app.use(express.static('./demo'));
    }
  
 const ALLOW_ORIGIN = [ // 跨域白名单
+'dingxiaolin.com',
  'sowl.cn',
  'jfry.cn',
  '127.0.0.1'
@@ -58,12 +59,11 @@ const nodeHost="dingxiaolin.com" //同源
  */
 app.use((req, res, next) => {
     let reqOrigin = req.headers.origin; // request响应头的origin属性
-    if(req.hostname==nodeHost){
-        res.header("Access-Control-Allow-Origin", '*');
-    }
+      
         if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
-            res.header("Access-Control-Allow-Origin", reqOrigin);
-            res.header('Access-Control-Allow-Credentials', 'true');
+            res.header("Access-Control-Allow-Origin", '*');
+            // res.header("Access-Control-Allow-Origin", reqOrigin);
+            // res.header('Access-Control-Allow-Credentials', 'true');
           } else {
             res.send({ code: -2, msg: '非法请求' });
             }
