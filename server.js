@@ -53,7 +53,7 @@ const ALLOW_ORIGIN = [ // 跨域白名单
  '127.0.0.1'
 ]; 
 const  host = 'dingxiaolin.com'; //同源策略
-reg1=new ReqExp(host,'ig');
+reg1=new RegExp(host,'ig');
 /**
  * 允许跨域
  */
