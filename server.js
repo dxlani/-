@@ -53,20 +53,21 @@ const ALLOW_ORIGIN = [ // 跨域白名单
  'jfry.cn',
  '127.0.0.1'
 ]; 
-
+const nodeHost="dingxiaolin.com"
 /**
  * 允许跨域
  */
 app.use((req, res, next) => {
     let reqOrigin = req.headers.origin; // request响应头的origin属性
-    
-        // if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
-        //     res.header("Access-Control-Allow-Origin", reqOrigin);
-        //   } else {
-        //     res.send({ code: -2, msg: '非法请求' });
-        //     }
-             res.header("Access-Control-Allow-Origin", '*');
-   // res.header('Access-Control-Allow-Credentials', 'true');
+    if(req.hostname==nodeHost){
+        res.header("Access-Control-Allow-Origin", '*');
+    }
+        if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
+            res.header("Access-Control-Allow-Origin", reqOrigin);
+            res.header('Access-Control-Allow-Credentials', 'true');
+          } else {
+            res.send({ code: -2, msg: '非法请求' });
+            }
     res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Request-Id");
     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
     res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
