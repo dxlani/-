@@ -57,7 +57,7 @@ const nodeHost="dingxiaolin.com" //同源
 /**
  * 允许跨域
  */
-app.use((req, res, next) => {
+app.use((req, res, next) => { 
     let reqOrigin = req.headers.origin; // request响应头的origin属性
       
         if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
