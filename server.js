@@ -7,9 +7,10 @@ const deleteLog=require('./controller/deleteLog.js'); //日志清除方法
 const pmx=require('./controller/pmx.js'); //add metric 
 const schedule = require('node-schedule');//定时清除日志工具
 const json2xls = require('json2xls');//导出excel
-const getccplog =require('./routes/getccplog');//ccp接口
-const getcsplog =require('./routes/getcsplog');
-const gettmslog =require('./routes/gettmslog');
+// const getccplog =require('./routes/getccplog');//ccp接口
+// const getcsplog =require('./routes/getcsplog');
+// const gettmslog =require('./routes/gettmslog');
+const api =require('./routes/api');
 const URL =require('url');
 app.use(bodyParser.json());
 app.use(bodyParser.text());
@@ -51,24 +52,28 @@ const ALLOW_ORIGIN = [ // 跨域白名单
  'dingxiaolin.com',
  'sowl.cn',
  'jfry.cn',
- '127.0.0.1'
+ '127.0.0.1:2017'
 ]; 
 /**
  * 允许跨域
  */
 app.use((req, res, next) => {
-      // res.header("Access-Control-Allow-Origin", '*');
-    let reqOrigin = req.headers.origin; // request响应头的origin属性
-        if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
-            res.header("Access-Control-Allow-Origin", reqOrigin);
-            res.header('Access-Control-Allow-Credentials', 'true');
-            res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Request-Id");
-            res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-            res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
-            next();
-          } else {
-            res.send({ code: -2, msg: '非法请求' });
-            }
+      res.header("Access-Control-Allow-Origin", '*');
+      res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Request-Id");
+      res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+      res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
+      next();
+    // let reqOrigin = req.headers.origin; // request响应头的origin属性
+    //     if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
+    //         res.header("Access-Control-Allow-Origin", reqOrigin);
+    //         res.header('Access-Control-Allow-Credentials', 'true');
+    //         res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Request-Id");
+    //         res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    //         res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
+    //         next();
+    //       } else {
+    //         res.send({ code: -2, msg: '非法请求' });
+    //         }
 });
 app.use('/log', (req, res) => {
     let logs = req.body;
@@ -167,12 +172,10 @@ app.use('/log', (req, res) => {
     // }
 });
 app.use(json2xls.middleware);//导出excel中间件
-
-app.use('/getccplog',getccplog);
-app.use('/getcsplog',getcsplog);
-app.use('/gettmslog',gettmslog);
+app.use('/api',api); //接口api
 //调用定时清除日志服务
 deleteLog.delete();
+
 //配置接口服务
 // var server = app.listen(2017,'192.168.1.188',function () {
 
@@ -182,7 +185,5 @@ deleteLog.delete();
     
 //         console.log('demo listening at http://%s:%s', host, port);
 //     })
-
-
 app.listen(2017);
 console.log('demo start');
