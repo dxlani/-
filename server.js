@@ -52,7 +52,7 @@ const ALLOW_ORIGIN = [ // 域名白名单
  'sowl.cn',
  'jfry.cn',
  '127.0.0.1'
-];
+]; 
 /**
  * 允许跨域
  */
