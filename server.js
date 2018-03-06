@@ -56,18 +56,18 @@ const ALLOW_ORIGIN = [ // 跨域白名单
  * 允许跨域
  */
 app.use((req, res, next) => {
+      // res.header("Access-Control-Allow-Origin", '*');
     let reqOrigin = req.headers.origin; // request响应头的origin属性
         if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
             res.header("Access-Control-Allow-Origin", reqOrigin);
             res.header('Access-Control-Allow-Credentials', 'true');
+            res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Request-Id");
+            res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+            res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
+            next();
           } else {
             res.send({ code: -2, msg: '非法请求' });
             }
-            // res.header("Access-Control-Allow-Origin", '*');
-    res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Request-Id");
-    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-    res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
-    next();
 });
 app.use('/log', (req, res) => {
     let logs = req.body;
