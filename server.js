@@ -58,16 +58,26 @@ const ALLOW_ORIGIN = [ // 域名白名单
  */
 app.use((req, res, next) => {
     let reqOrigin = req.headers.origin; // request响应头的origin属性
-    if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
-     res.header("Access-Control-Allow-Origin", reqOrigin);
-   // res.header("Access-Control-Allow-Origin", 'http://127.0.0.1');
+    let reqHost= req.headers.hostname;
+    if(isOriginAllowed(reqHost, ALLOW_ORIGIN)){
+    res.header("Access-Control-Allow-Origin", '*');
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Request-Id");
     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
     res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
-  } else {
-    res.send({ code: -2, msg: '非法请求' });
+    }else{
+        if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
+            res.header("Access-Control-Allow-Origin", reqOrigin);
+            res.header('Access-Control-Allow-Credentials', 'true');
+            res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Request-Id");
+            res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+            res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
+          } else {
+            res.send({ code: -2, msg: '非法请求',a:req.header.hostname,b:req.host,c:req.hostname,d:req.reqHost });
+            }
     }
+   
+    
     next();
 });
 // app.use((req, res, next) => {
