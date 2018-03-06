@@ -51,6 +51,7 @@ const ALLOW_ORIGIN = [ // 跨域白名单
  'dingxiaolin.com',
  'sowl.cn',
  'jfry.cn',
+ '127.0.0.1'
 ]; 
 /**
  * 允许跨域
