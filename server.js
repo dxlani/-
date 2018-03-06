@@ -52,7 +52,7 @@ const ALLOW_ORIGIN = [ // 跨域白名单
  'jfry.cn',
  '127.0.0.1'
 ]; 
-const host=/dingxiaolin.com/iq; //同源策略
+const  host = /dingxiaolin.com/iq; //同源策略
 /**
  * 允许跨域
  */
