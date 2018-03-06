@@ -52,14 +52,15 @@ const ALLOW_ORIGIN = [ // 跨域白名单
  'jfry.cn',
  '127.0.0.1'
 ]; 
-const  host = /dingxiaolin.com/iq; //同源策略
+const  host = 'dingxiaolin.com'; //同源策略
+reg1=new ReqExp(host,'ig');
 /**
  * 允许跨域
  */
 app.use((req, res, next) => {
     let reqOrigin = req.headers.origin; // request响应头的origin属性
     let reqHost= req.hostname;
-    if(host.test(reqHost)){
+    if(reg1.test(reqHost)){
     res.header("Access-Control-Allow-Origin", '*');
     }else{
         if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
