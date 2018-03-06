@@ -61,34 +61,19 @@ app.use((req, res, next) => {
     let reqHost= req.headers.hostname;
     if(isOriginAllowed(reqHost, ALLOW_ORIGIN)){
     res.header("Access-Control-Allow-Origin", '*');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Request-Id");
-    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-    res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
     }else{
         if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
             res.header("Access-Control-Allow-Origin", reqOrigin);
-            res.header('Access-Control-Allow-Credentials', 'true');
-            res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Request-Id");
-            res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-            res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
           } else {
             res.send({ code: -2, msg: '非法请求',a:req.header.hostname,b:req.host,c:req.hostname,d:req.reqHost });
             }
     }
-   
-    
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Request-Id");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
     next();
 });
-// app.use((req, res, next) => {
-//     res.header("Access-Control-Allow-Origin", 'http://127.0.0.1');
-//     res.header('Access-Control-Allow-Credentials', 'true');
-//     res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Request-Id");
-//     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-//     res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
-//   next();
-
-// });
 app.use('/log', (req, res) => {
     let logs = req.body;
     console.log('logs',logs);
