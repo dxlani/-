@@ -58,14 +58,14 @@ const ALLOW_ORIGIN = [ // 域名白名单
  */
 app.use((req, res, next) => {
     let reqOrigin = req.headers.origin; // request响应头的origin属性
-    let reqHost= req.headers.hostname;
+    let reqHost= req.hostname;
     if(isOriginAllowed(reqHost, ALLOW_ORIGIN)){
     res.header("Access-Control-Allow-Origin", '*');
     }else{
         if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
             res.header("Access-Control-Allow-Origin", reqOrigin);
           } else {
-            res.send({ code: -2, msg: '非法请求',a:req.header.hostname,b:req.host,c:req.hostname,d:req.reqHost });
+            res.send({ code: -2, msg: '非法请求' });
             }
     }
     res.header('Access-Control-Allow-Credentials', 'true');
