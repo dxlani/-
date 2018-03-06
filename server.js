@@ -47,19 +47,19 @@ app.use(express.static('./demo'));
     return reg.test(origin)
    }
  
-const ALLOW_ORIGIN = [ // 域名白名单
- 'dingxiaolin.com',
+const ALLOW_ORIGIN = [ // 跨域白名单
  'sowl.cn',
  'jfry.cn',
  '127.0.0.1'
 ]; 
+const host=/dingxiaolin.com/iq //同源策略
 /**
  * 允许跨域
  */
 app.use((req, res, next) => {
     let reqOrigin = req.headers.origin; // request响应头的origin属性
     let reqHost= req.hostname;
-    if(isOriginAllowed(reqHost, ALLOW_ORIGIN)){
+    if(host.test(reqHost)){
     res.header("Access-Control-Allow-Origin", '*');
     }else{
         if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
