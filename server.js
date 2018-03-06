@@ -48,12 +48,11 @@ app.use(express.static('./demo'));
    }
  
 const ALLOW_ORIGIN = [ // 跨域白名单
- 'dingxiaolin.com',
  'sowl.cn',
  'jfry.cn',
  '127.0.0.1'
 ]; 
-const nodeHost="dingxiaolin.com"
+const nodeHost="dingxiaolin.com" //同源
 /**
  * 允许跨域
  */
