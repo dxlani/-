@@ -58,22 +58,22 @@ const ALLOW_ORIGIN = [ // 跨域白名单
  * 允许跨域
  */
 app.use((req, res, next) => {
-      res.header("Access-Control-Allow-Origin", '*');
-      res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Request-Id");
-      res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-      res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
-      next();
-    // let reqOrigin = req.headers.origin; // request响应头的origin属性
-    //     if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
-    //         res.header("Access-Control-Allow-Origin", reqOrigin);
-    //         res.header('Access-Control-Allow-Credentials', 'true');
-    //         res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Request-Id");
-    //         res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-    //         res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
-    //         next();
-    //       } else {
-    //         res.send({ code: -2, msg: '非法请求' });
-    //         }
+    //   res.header("Access-Control-Allow-Origin", '*');
+    //   res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Request-Id");
+    //   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+      
+    let reqOrigin = req.headers.origin; // request响应头的origin属性
+        if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) {
+            res.header("Access-Control-Allow-Origin", reqOrigin);
+            res.header('Access-Control-Allow-Credentials', 'true');
+            res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Request-Id");
+            res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+            res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
+            next();
+          } else {
+            res.setHeader('Content-Type','text/javascript;charset=UTF-8'); //解决res乱码
+            next();
+            }
 });
 app.use('/log', (req, res) => {
     let logs = req.body;
@@ -103,12 +103,13 @@ app.use('/log', (req, res) => {
             //发送到数据库  
             //截取域名判断
             var hostname=URL.parse(url,false,true).hostname;
+            console.log('hostname',hostname);
              //根据域名插入不同的记录表
             switch(hostname)
             {
                 case "tms.sowl.cn":
                       //tms
-                    var hostvalid=ture;
+                    var hostvalid=true;
                     pool.getConnection((err, conn)=>{
                         if(err){
                             return;
@@ -124,7 +125,7 @@ app.use('/log', (req, res) => {
                     break;
                 case "csp.sowl.cn":
                      //csp
-                     var hostvalid=ture;
+                     var hostvalid=true;
                     pool.getConnection((err, conn)=>{
                         if(err){
                             return;
@@ -140,7 +141,7 @@ app.use('/log', (req, res) => {
                     break;
                 case "ccp.sowl.cn":
                     //ccp
-                    var hostvalid=ture;
+                    var hostvalid=true;
                     pool.getConnection((err, conn)=>{
                         if(err){
                             return;
@@ -161,8 +162,15 @@ app.use('/log', (req, res) => {
             }
 
             //error日志报警
+            var list={
+                level:level,
+                hostname:hostname,
+                time:time,
+                url:url,
+                msgs:msgs
+            }
             if(hostvalid){
-                sendEmail(level,hostname,time,url,msgs);
+                sendEmail(list);
             }
         });
     }

@@ -1,6 +1,7 @@
 const getccplog =require('./getccplog');//ccp接口
 const getcsplog =require('./getcsplog');
 const gettmslog =require('./gettmslog');
+const mailconfig =require('./mailconfig');
 
 var express=require('express');
 
@@ -10,5 +11,6 @@ var router=express.Router();
 router.use('/getccplog',getccplog);
 router.use('/getcsplog',getcsplog);
 router.use('/gettmslog',gettmslog);
+router.use('/mail',mailconfig);
 
 module.exports=router;
