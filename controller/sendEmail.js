@@ -2,15 +2,15 @@ const nodemailer = require('nodemailer');
 // error日志邮件报警
 const pool = require('../dbpool');
 var sendEmail=(list)=>{
-    var level=list.level;
-    var hostname=list.hostname;
-    var time=list.time;
-    var url=list.url;
-    var msgs=list.msgs;
-    var openStatus='';
-    var sender="";
-    var accepter="";
-    var smtp="";
+    var level=list.level; //日志等级
+    var hostname=list.hostname;  //日志域名
+    var time=list.time; //日志记录时间
+    var url=list.url;  //日志记录的接口地址
+    var msgs=list.msgs; //日志消息
+    var openStatus=''; //邮件报警开启状态  
+    var sender=""; //发件人
+    var accepter=""; //收件人
+    var smtp=""; //smtp 密码
     pool.getConnection((err, conn)=> {
         if(err){
             console.log('err1',err);
