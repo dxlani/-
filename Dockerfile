@@ -11,7 +11,7 @@ RUN cnpm i -g pm2 --save
 
 COPY . /home/Service
 
-ENV TZ=Asia/Shanghai
+ENV TZ=Asia/Shanghai 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezoness
 
 EXPOSE 2017
