@@ -13,6 +13,5 @@ router.use('/getccplog',getccplog);
 router.use('/getcsplog',getcsplog);
 router.use('/gettmslog',gettmslog);
 router.use('/mail',mailconfig);
-router.use('/log',log);
 
 module.exports=router;
