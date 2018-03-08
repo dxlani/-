@@ -27,7 +27,6 @@ const colorize = level => {
 
 router.post('/',(req,res,next)=>{
     let logs = req.body;
-    console.log('logs',logs);
     if (typeof logs === 'string') {
         try {
             logs = JSON.parse(logs);
