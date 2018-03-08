@@ -2,6 +2,7 @@ var express = require('express');
 const router = express.Router();
 const pool = require('../dbpool');
 const URL =require('url');
+const sendEmail=require('../controller/sendEmail.js'); 
 /**
  * 日志级别对应的颜色枚举
  */
