@@ -28,7 +28,6 @@ var sendEmail=(list)=>{
                     sender=result[0].sender;
                     accepter=result[0].accepter;
                     smtp=result[0].smtp;
-                    console.log(level,openStatus,sender,time)
                     if(level=="error" && openStatus=="1"){
                         var transporter = nodemailer.createTransport({
                             service: 'qq',
@@ -59,15 +58,10 @@ var sendEmail=(list)=>{
                         });
                     }
             }else {  
-               console.log('开启状态查询失败',openStatus);
+               console.log('开启状态查询失败,状态:',openStatus);
             }
             })
             conn.release();
       });
-console.log('level',level);
-console.log('openStatus',openStatus);
-console.log('sender',sender);
-    
-  
 }
 module.exports = sendEmail;
