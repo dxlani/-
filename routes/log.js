@@ -125,3 +125,4 @@ router.get('/log',(req,res,next)=>{
     // }
 })
 
+module.exports = router;
