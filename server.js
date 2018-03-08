@@ -9,7 +9,7 @@ const schedule = require('node-schedule');//定时清除日志工具
 const json2xls = require('json2xls');//导出excel
 const api =require('./routes/api');//接口汇总
 const log =require('./routes/log'); //接收前端日志
-const URL =require('url');
+
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 
@@ -176,7 +176,7 @@ app.use((req, res, next) => {
 // });
 app.use(json2xls.middleware);//导出excel中间件
 app.use('/api',api); 
-app.use('/',log); 
+app.use('/log',log); 
 deleteLog.delete();//调用定时清除日志服务
 
 //配置接口服务

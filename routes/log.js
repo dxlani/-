@@ -1,6 +1,7 @@
 var express = require('express');
 const router = express.Router();
 const pool = require('../dbpool');
+const URL =require('url');
 /**
  * 日志级别对应的颜色枚举
  */
@@ -23,7 +24,7 @@ const colorize = level => {
     };
 };
 
-router.get('/log',(req,res,next)=>{
+router.post('/',(req,res,next)=>{
     let logs = req.body;
     console.log('logs',logs);
     if (typeof logs === 'string') {
