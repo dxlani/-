@@ -1,7 +1,29 @@
+var express = require('express');
+const router = express.Router();
+const pool = require('../dbpool');
+/**
+ * 日志级别对应的颜色枚举
+ */
+const levelColorEnum = {
+    info: [32, 39],
+    warn: [33, 39],
+    error: [31, 39],
+};
 
+/**
+ * 获取日志颜色   
+ * 
+ * @param {string} level - 日志级别
+ */
+const colorize = level => {
+    const color = levelColorEnum[level];
+    return {
+        start: `\x1B[${color[0]}m`,
+        end: `\x1B[${color[1]}m`,
+    };
+};
 
-
-app.use('/log', (req, res) => {
+router.get('/log',(req,res,next)=>{
     let logs = req.body;
     console.log('logs',logs);
     if (typeof logs === 'string') {
@@ -15,7 +37,6 @@ app.use('/log', (req, res) => {
 
     // 如果日志是一个数组，说明是正常的数据
     if (Array.isArray(logs)) {
-       
         logs.forEach(log => {
             var time = log.time;
             var level = log.level;
@@ -29,7 +50,6 @@ app.use('/log', (req, res) => {
             //发送到数据库  
             //截取域名判断
             var hostname=URL.parse(url,false,true).hostname;
-            console.log('hostname',hostname);
              //根据域名插入不同的记录表
             switch(hostname)
             {
@@ -80,11 +100,10 @@ app.use('/log', (req, res) => {
                             conn.release();
                         })
                     })
-                    console.log("ccp");
                     break;       
                 default:
                 var hostvalid=false;
-                console.log('域名不匹配');
+                console.log('监听域名不匹配');
             }
 
             //error日志报警
@@ -104,4 +123,5 @@ app.use('/log', (req, res) => {
     // 仅返回一个空字符串，节省带宽
     res.end('');
     // }
-});
+})
+
