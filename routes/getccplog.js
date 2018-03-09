@@ -68,19 +68,30 @@ var fenye=" limit "+skip+","+count;
     var starttime=new Date(startTime).getTime();
     var endtime=new Date(endTime).getTime();
     //if(!level & !startTime & !endTime & !keyword){
+
+        {"errorMessage":null,
+        "errorCode":null,
+        "success":true,
+        "data":{
+            "id":"1",
+            "userName":"admin1",
+            "jwtToken":
+            "eyJh_ha7o"
+               }
+        }
+
     if(false){
       return res.send({
-        status:0,
-        info:'提交的字段不全'
+        errorMessage:'提交的字段不全',
+        errorCode:null,
+        success:true,
       });
     }else{
         if(endtime && starttime && endtime<starttime){
             res.send({
-                status:0,
-                data:{
-                    data:'时间节点错误',
-                    total:0
-                }
+                errorMessage:'时间节点错误',
+                errorCode:null,
+                success:true,
             })
         }else{
             pool.getConnection((err, conn)=> {
@@ -107,7 +118,9 @@ var fenye=" limit "+skip+","+count;
                                 }
                                 if(result.length>0){ //条件查询 ，找到数据
                                 res.send({
-                                    status:1,
+                                    errorMessage:null,
+                                    errorCode:null,
+                                    success:true,
                                     data:{
                                         data:result,
                                         total:totalCount,
@@ -117,7 +130,9 @@ var fenye=" limit "+skip+","+count;
                         )
                     }else {  
                         res.send({
-                            status:0,
+                            errorMessage:null,
+                            errorCode:null,
+                            success:true,
                             data:{
                                 data: '未查询到数据',
                                 total:0,
@@ -197,17 +212,16 @@ router.get('/export',function(req,res,next){
     //if(!level & !startTime & !endTime & !keyword){
     if(false){
       return res.send({
-        status:0,
-        info:'提交的字段不全'
+        errorMessage:'提交的字段不全',
+        errorCode:null,
+        success:true,
       });
     }else{
         if(endtime && starttime && endtime<starttime){
             res.send({
-                status:0,
-                data:{
-                data:'时间节点错误',
-                total:0
-                }
+                errorMessage:'时间节点错误',
+                errorCode:null,
+                success:true
             })
         }else{
             pool.getConnection((err, conn)=> {
@@ -240,11 +254,9 @@ router.get('/export',function(req,res,next){
                     })
                     }else {  
                         res.send({
-                            status:0,
-                            data:{
-                                data: '未查询到数据',
-                                total:0,
-                            }
+                            errorMessage:'未查询到数据',
+                            errorCode:null,
+                            success:true,
                         })
                     }
                     conn.release();
