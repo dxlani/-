@@ -62,7 +62,7 @@ app.controller('myCtrl',['$scope','$http',function ($scope,$http) {
         }else{
           $scope.total=res.total;
           $scope.paginationConf.totalItems=res.total;
-          $scope.list=res.data;
+          $scope.list=(res.data.length>0 ? res.data : '未查询到数据');
           $scope.show=data.status;
           $scope.curcount=res.curcount;
         }
@@ -79,7 +79,7 @@ app.controller('myCtrl',['$scope','$http',function ($scope,$http) {
         }else{
           $scope.total=res.total;
           $scope.paginationConf.totalItems=res.total;
-          $scope.list=res.data;
+          $scope.list=(res.data.length>0 ? res.data : '未查询到数据');
           $scope.show=data.status;
           $scope.curcount=res.curcount;
         }
@@ -96,9 +96,10 @@ app.controller('myCtrl',['$scope','$http',function ($scope,$http) {
         }else{
           $scope.total=res.total;
           $scope.paginationConf.totalItems=res.total;
-          $scope.list=res.data;
+          $scope.list=(res.data.length>0 ? res.data : '未查询到数据');
           $scope.show=data.status;
           $scope.curcount=res.curcount;
+          console.log($scope.list);
         }
       })
       break;

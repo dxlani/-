@@ -70,16 +70,16 @@ var fenye=" limit "+skip+","+count;
       return res.send({
         status:0,
         errorMessage:'提交的字段不全',
-        errorCode:null,
-        success:true,
+        errorCode:10001,
+        success:false,
       });
     }else{
         if(endtime && starttime && endtime<starttime){
             res.send({
                 status:0,
                 errorMessage:'时间节点错误',
-                errorCode:null,
-                success:true,
+                errorCode:10002,
+                success:false,
             })
         }else{
             pool.getConnection((err, conn)=> {
@@ -125,7 +125,7 @@ var fenye=" limit "+skip+","+count;
                             errorCode:null,
                             success:true,
                             data:{
-                                data: '未查询到数据',
+                                data: [],
                                 total:0,
                             }
                         })
@@ -201,16 +201,16 @@ router.get('/export',function(req,res,next){
       return res.send({
         status:0,
         errorMessage:'提交的字段不全',
-        errorCode:null,
-        success:true,
+        errorCode:10001,
+        success:false,
       });
     }else{
         if(endtime && starttime && endtime<starttime){
             res.send({
                 status:0,
                 errorMessage:'时间节点错误',
-                errorCode:null,
-                success:true
+                errorCode:10002,
+                success:false
             })
         }else{
             pool.getConnection((err, conn)=> {
