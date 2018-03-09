@@ -51,16 +51,21 @@ app.controller('myCtrl',['$scope','$http',function ($scope,$http) {
       case "ccp":
       $http
       .get('/api/getccplog?level='+ $scope.l+"&keyword="+ $scope.k+"&startTime="+ $scope.s+"&endTime="+ $scope.e+"&skip="+ $scope.skip+"&count="+ $scope.count,
-      { withCredentials: true,
-        headers: {'Authorization':"89757"}})    
+      // { withCredentials: true,
+      //   headers: {'Authorization':"dxl"}}
+    )    
       .success(function (data) {
         //解析服务端返回的结果
-        console.log(data.data);
-        $scope.total=data.data.total;
-        $scope.paginationConf.totalItems=data.data.total;
-        $scope.list=data.data.data;
-        $scope.show=data.status;
-        $scope.curcount=data.data.curcount;
+        var res=data.data;
+        if(data.errorMessage){
+          alert(data.errorMessage);
+        }else{
+          $scope.total=res.total;
+          $scope.paginationConf.totalItems=res.total;
+          $scope.list=res.data;
+          $scope.show=data.status;
+          $scope.curcount=res.curcount;
+        }
       })
       break;
       case "tms":
@@ -68,12 +73,16 @@ app.controller('myCtrl',['$scope','$http',function ($scope,$http) {
       .get('/api/gettmslog?level='+$scope.l+"&keyword="+$scope.k+"&startTime="+$scope.s+"&endTime="+$scope.e+"&skip="+$scope.skip+"&count="+$scope.count)
       .success(function (data) {
         //解析服务端返回的结果
-        console.log(data.data);
-        $scope.total=data.data.total;
-        $scope.paginationConf.totalItems=data.data.total;
-        $scope.list=data.data.data;
-        $scope.show=data.status;
-        $scope.curcount=data.data.curcount;
+        var res=data.data;
+        if(data.errorMessage){
+          alert(data.errorMessage);
+        }else{
+          $scope.total=res.total;
+          $scope.paginationConf.totalItems=res.total;
+          $scope.list=res.data;
+          $scope.show=data.status;
+          $scope.curcount=res.curcount;
+        }
       })
       break;
       case "csp":
@@ -81,12 +90,16 @@ app.controller('myCtrl',['$scope','$http',function ($scope,$http) {
       .get('/api/getcsplog?level='+$scope.l+"&keyword="+$scope.k+"&startTime="+$scope.s+"&endTime="+$scope.e+"&skip="+$scope.skip+"&count="+$scope.count)
       .success(function (data) {
         //解析服务端返回的结果
-        console.log(data.data);
-        $scope.total=data.data.total;
-        $scope.paginationConf.totalItems=data.data.total;
-        $scope.list=data.data.data;
-        $scope.show=data.status;
-        $scope.curcount=data.data.curcount;
+        var res=data.data;
+        if(data.errorMessage){
+          alert(data.errorMessage);
+        }else{
+          $scope.total=res.total;
+          $scope.paginationConf.totalItems=res.total;
+          $scope.list=res.data;
+          $scope.show=data.status;
+          $scope.curcount=res.curcount;
+        }
       })
       break;
     }

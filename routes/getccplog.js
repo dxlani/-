@@ -71,6 +71,7 @@ var fenye=" limit "+skip+","+count;
 
     if(false){
       return res.send({
+        status:0,
         errorMessage:'提交的字段不全',
         errorCode:null,
         success:true,
@@ -78,6 +79,7 @@ var fenye=" limit "+skip+","+count;
     }else{
         if(endtime && starttime && endtime<starttime){
             res.send({
+                status:0,
                 errorMessage:'时间节点错误',
                 errorCode:null,
                 success:true,
@@ -107,6 +109,7 @@ var fenye=" limit "+skip+","+count;
                                 }
                                 if(result.length>0){ //条件查询 ，找到数据
                                 res.send({
+                                    status:1,
                                     errorMessage:null,
                                     errorCode:null,
                                     success:true,
@@ -119,6 +122,7 @@ var fenye=" limit "+skip+","+count;
                         )
                     }else {  
                         res.send({
+                            status:0,
                             errorMessage:null,
                             errorCode:null,
                             success:true,
@@ -201,6 +205,7 @@ router.get('/export',function(req,res,next){
     //if(!level & !startTime & !endTime & !keyword){
     if(false){
       return res.send({
+        status:0,
         errorMessage:'提交的字段不全',
         errorCode:null,
         success:true,
@@ -208,6 +213,7 @@ router.get('/export',function(req,res,next){
     }else{
         if(endtime && starttime && endtime<starttime){
             res.send({
+                status:0,
                 errorMessage:'时间节点错误',
                 errorCode:null,
                 success:true
@@ -218,17 +224,8 @@ router.get('/export',function(req,res,next){
                     console.log('err',err);
                     return ;
                 }
-                conn.query(
-                 "SELECT pid FROM ccp_log_total", //查总数
-                  (err, result)=> {
-                      if(err){
-                          console.log('err',err);
-                          return ;
-                      }
-                    if(result.length>0){ //条件查询 ，找到数据
-                        var totalCount=result.length;
-                        var excel=(new Date().getTime()+".xlsx").toString();
-                        conn.query(
+                var excel=(new Date().getTime()+".xlsx").toString();
+                    conn.query(
                             // "select * FROM ccp_log_total WHERE 1=1"+str+order+ " into outfile "+"'./ccplog"+excel+"'", 
                             "select * FROM ccp_log_total WHERE 1=1"+str+order, 
                             strArray,
@@ -239,17 +236,8 @@ router.get('/export',function(req,res,next){
                                 }
                           res.xls('ccp'+excel, result);
                         //  res.download("./ccplog"+excel);
-                     
                     })
-                    }else {  
-                        res.send({
-                            errorMessage:'未查询到数据',
-                            errorCode:null,
-                            success:true,
-                        })
-                    }
                     conn.release();
-                  })
               })
         }
     }
