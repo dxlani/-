@@ -69,17 +69,6 @@ var fenye=" limit "+skip+","+count;
     var endtime=new Date(endTime).getTime();
     //if(!level & !startTime & !endTime & !keyword){
 
-        {"errorMessage":null,
-        "errorCode":null,
-        "success":true,
-        "data":{
-            "id":"1",
-            "userName":"admin1",
-            "jwtToken":
-            "eyJh_ha7o"
-               }
-        }
-
     if(false){
       return res.send({
         errorMessage:'提交的字段不全',
